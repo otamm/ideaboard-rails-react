@@ -11,10 +11,11 @@ class IdeasContainer extends Component {
     }
 
 	componentDidMount() {
+		var _this = this;
 		axios.get('http://localhost:3001/')
 		.then(function(response) {
 			console.log(response);
-			this.setState({ ideas: response.data });
+			_this.setState({ ideas: response.data });
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -24,7 +25,16 @@ class IdeasContainer extends Component {
 	render() {
 		return (
 			<div>
-				Ideas
+				
+				{	this.state.ideas.map(function(idea) {
+						return (
+								<div className="tile" key={idea.id}>
+									<h3>{idea.title}</h3>
+									<p>{idea.body}</p>
+								</div>
+							);
+					})
+				}
 			</div>
 		)
 

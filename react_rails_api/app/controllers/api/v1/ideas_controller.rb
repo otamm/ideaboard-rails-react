@@ -4,5 +4,11 @@ module Api::V1 # this makes the API have a version, useful for backwards compati
 			@ideas = Idea.all
 			render json: @ideas
 		end
+
+		private
+
+		def idea_params
+			params.require(:idea).permit(:title, :body)
+		end
 	end
 end

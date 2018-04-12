@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'; // api calls
+import Idea from './Idea' // stateless component
 
 class IdeasContainer extends Component {
 
@@ -27,12 +28,7 @@ class IdeasContainer extends Component {
 			<div>
 				
 				{	this.state.ideas.map(function(idea) {
-						return (
-								<div className="tile" key={idea.id}>
-									<h3>{idea.title}</h3>
-									<p>{idea.body}</p>
-								</div>
-							);
+						return (<Idea idea={idea} key={idea.id} />);
 					})
 				}
 			</div>

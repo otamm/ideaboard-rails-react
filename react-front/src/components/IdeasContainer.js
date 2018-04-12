@@ -26,7 +26,9 @@ class IdeasContainer extends Component {
 	render() {
 		return (
 			<div>
-				
+				<button className="new-idea-button">
+					New Idea
+				</button>
 				{	this.state.ideas.map(function(idea) {
 						return (<Idea idea={idea} key={idea.id} />);
 					})

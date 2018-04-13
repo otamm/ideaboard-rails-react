@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'; // api calls
-import Idea from './Idea'; // stateless component
 import update from 'immutability-helper'; // mutate a copy of data without changing the original source: https://github.com/kolodny/immutability-helper
+import Idea from './Idea'; // stateless component
+import IdeaForm from './IdeaForm'; // makes an idea cell into a form to create and edit idea
 
 class IdeasContainer extends Component {
 	/* protocol functions */

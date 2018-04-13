@@ -3,7 +3,7 @@ import axios from 'axios'; // api calls
 import Idea from './Idea' // stateless component
 
 class IdeasContainer extends Component {
-
+	/* protocol functions */
 	constructor(props) {
     	super(props);
     	this.state = {
@@ -26,7 +26,8 @@ class IdeasContainer extends Component {
 	render() {
 		return (
 			<div>
-				<button className="new-idea-button">
+				<button className="new-idea-button"
+				onClick={this.addNewIdea} >
 					New Idea
 				</button>
 				{	this.state.ideas.map(function(idea) {
@@ -36,6 +37,22 @@ class IdeasContainer extends Component {
 			</div>
 		)
 
+	}
+	/* custom functions */
+	addNewIdea() {
+		axios.post(
+	    'http://localhost:3001/',
+	    { idea:
+	      {
+	        title: '',
+	        body: ''
+	      }
+	    }
+	  )
+	  .then(response => {
+	    console.log(response)
+	  })
+	  .catch(error => console.log(error))
 	}
 }
 

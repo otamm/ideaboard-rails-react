@@ -26,6 +26,8 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }*/
+
+/* bg of all ideas */
 .tile {
   height: 150px;
   width: 150px;
@@ -34,6 +36,26 @@
   float: left;
   font-size: 11px;
   text-align: left;
+}
+
+/* for idea-form */
+.input {
+  border: 0;
+  background: none;
+  outline: none;
+  margin-top:10px;
+  width: 140px;
+  font-size: 11px;
+}
+
+.input:focus {
+  border: solid 1px lightgrey;
+}
+
+textarea {
+  resize: none;
+  height: 90px;
+  font-size: 11px;
 }
 
 .new-idea-button {

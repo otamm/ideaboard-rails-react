@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios'; // api calls
-import Idea from './Idea' // stateless component
+import Idea from './Idea'; // stateless component
+import update from 'immutability-helper'; // mutate a copy of data without changing the original source: https://github.com/kolodny/immutability-helper
 
 class IdeasContainer extends Component {
 	/* protocol functions */
+
 	constructor(props) {
     	super(props);
     	this.state = {
@@ -12,11 +14,10 @@ class IdeasContainer extends Component {
     }
 
 	componentDidMount() {
-		var _this = this;
 		axios.get('http://localhost:3001/')
-		.then(function(response) {
+		.then(response => {
 			console.log(response);
-			_this.setState({ ideas: response.data });
+			this.setState({ ideas: response.data });
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -39,9 +40,10 @@ class IdeasContainer extends Component {
 
 	}
 	/* custom functions */
-	addNewIdea() {
+	//addNewIdea() {
+	addNewIdea = () => { // if declaring function as the line above, 'this' refers to the function and not the instance. Yeah.
 		axios.post(
-	    'http://localhost:3001/',
+	    'http://localhost:3001/api/v1/ideas',
 	    { idea:
 	      {
 	        title: '',
@@ -50,9 +52,13 @@ class IdeasContainer extends Component {
 	    }
 	  )
 	  .then(response => {
-	    console.log(response)
+	    console.log(response);
+	    const ideas = update(this.state.ideas, { // 
+	    	$splice: [[0,0,response.data]] // inserts new idea (response.data) at the beginning of the rendered idea array
+	    });
+	    this.setState({ideas: ideas});
 	  })
-	  .catch(error => console.log(error))
+	  .catch(function(error) { console.log(error); } );
 	}
 }
 

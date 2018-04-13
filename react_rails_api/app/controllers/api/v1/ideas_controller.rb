@@ -5,6 +5,11 @@ module Api::V1 # this makes the API have a version, useful for backwards compati
 			render json: @ideas
 		end
 
+		def create
+		  @idea = Idea.create(idea_params)
+		  render json: @idea
+		end
+
 		private
 
 		def idea_params

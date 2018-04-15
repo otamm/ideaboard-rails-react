@@ -40,9 +40,9 @@ class IdeasContainer extends Component {
 				{	this.state.ideas.map((idea) => {
 						if (this.state.editingIdeaId === idea.id) {
 							// this 'updateIdea' element is a React prop.
-							return (<IdeaForm idea={idea} key={idea.id} updateIdea={this.updateIdea}/>);
+							return (<IdeaForm idea={idea} key={idea.id} updateIdea={this.updateIdea} />);
 						} else {
-							return (<Idea idea={idea} key={idea.id} />);
+							return (<Idea idea={idea} key={idea.id} onClick={this.enableEditing} />);
 						}
 					})
 				}
@@ -87,6 +87,10 @@ class IdeasContainer extends Component {
 			notification: 'All changes saved!'
 		});
 		this.resetNotification(); // clears notification after 3 seconds;
+	}
+
+	enableEditing = (id) => { // clicked idea tile becomes editable
+		this.setState({editingIdeaId: id});
 	}
 
 	resetNotification = () => {

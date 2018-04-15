@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react';
 
+/*
 // this is a stateless component, bascially used only for rendering
 const Idea = ({idea}) =>
   (
@@ -8,5 +9,25 @@ const Idea = ({idea}) =>
       <p>{idea.body}</p>
     </div>
   )
+*/
 
-export default Idea
+class Idea extends Component {
+	handleClick = () => {
+		this.props.onClick(this.props.idea.id) // will send this idea instance's id as an argument for function handling onClick
+	}
+
+	render () {
+	    return(
+	      <div className="tile">
+	        <h4 onClick={this.handleClick}>
+	          {this.props.idea.title}
+	        </h4>
+	        <p onClick={this.handleClick}>
+	          {this.props.idea.body}
+	        </p>
+	      </div>
+	    )
+    }
+}
+
+export default Idea;

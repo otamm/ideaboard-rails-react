@@ -14,10 +14,28 @@ class IdeaForm extends Component {
   		this.setState( {[e.target.name]: e.target.value })
   	}
 
-  	render() {
+  	handleBlur = () => { // gets called after clicking outside ('blurring out') of an IdeaForm component
+  		const idea = {
+  			title: this.state.title,
+  			body: this.state.body
+  		}
+  		axios.put(
+  			`http://localhost:3001/api/v1/ideas/${this.props.idea.id}`,
+  			{ 
+  				idea: idea
+  		})
+  		.then(response => {
+  			console.log(response);
+  		})
+  		.catch(function(error) {
+  			console.log(error);
+  		});
+  	}
+
+  	render() { // onBlur executes once user leaves input field
 	    return (
 	      <div className="tile">
-	        <form>
+	        <form onBlur={this.handleBlur}>
 	          <input 
 	            className='input' 
 	            type="text"
@@ -29,7 +47,7 @@ class IdeaForm extends Component {
 	            className='input' 
 	            name="body"
 	            placeholder='Describe your idea'
-	            value={this.state.title}
+	            value={this.state.body}
 	            onChange={this.handleInput}>
 	            </textarea>
 	        </form>

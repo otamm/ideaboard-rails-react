@@ -26,6 +26,7 @@ class IdeaForm extends Component {
   		})
   		.then(response => {
   			console.log(response);
+  			this.props.updateIdea(response.data); // triggers updateIdea function in IdeasContainer component with the updated idea as its argument
   		})
   		.catch(function(error) {
   			console.log(error);

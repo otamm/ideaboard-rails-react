@@ -35,7 +35,8 @@ class IdeasContainer extends Component {
 				</button>
 				{	this.state.ideas.map((idea) => {
 						if (this.state.editingIdeaId === idea.id) {
-							return (<IdeaForm idea={idea} key={idea.id} />);
+							// this 'updateIdea' element is a React prop.
+							return (<IdeaForm idea={idea} key={idea.id} updateIdea={this.updateIdea}/>);
 						} else {
 							return (<Idea idea={idea} key={idea.id} />);
 						}
@@ -68,6 +69,16 @@ class IdeasContainer extends Component {
 	    });
 	  })
 	  .catch(function(error) { console.log(error); } );
+	}
+
+	updateIdea = (idea) => { // updates idea state inside IdeasContainer after updating idea's content in the DB
+		const ideaIndex = this.state.ideas.findIndex(function(x) {
+			x.id === idea.id;
+		});
+		const ideas = update(this.state.ideas, { // does an immutable update of the edited idea
+			[ideaIndex]: {$set: idea} // replaces the old value of the idea instance with the new one sent to the DB
+		});
+		this.setState({ideas: ideas});
 	}
 }
 

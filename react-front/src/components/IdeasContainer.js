@@ -11,7 +11,8 @@ class IdeasContainer extends Component {
     	super(props);
     	this.state = {
         	ideas: [],
-        	editingIdeaId: null
+        	editingIdeaId: null,
+        	notification: ''
     	}
     }
 
@@ -33,6 +34,9 @@ class IdeasContainer extends Component {
 				onClick={this.addNewIdea} >
 					New Idea
 				</button>
+				<span className="notification">
+				  {this.state.notification}
+				</span>
 				{	this.state.ideas.map((idea) => {
 						if (this.state.editingIdeaId === idea.id) {
 							// this 'updateIdea' element is a React prop.
@@ -78,7 +82,15 @@ class IdeasContainer extends Component {
 		const ideas = update(this.state.ideas, { // does an immutable update of the edited idea
 			[ideaIndex]: {$set: idea} // replaces the old value of the idea instance with the new one sent to the DB
 		});
-		this.setState({ideas: ideas});
+		this.setState({
+			ideas: ideas,
+			notification: 'All changes saved!'
+		});
+		this.resetNotification(); // clears notification after 3 seconds;
+	}
+
+	resetNotification = () => {
+		setTimeout(() => this.setState({notification: ''}), 3000);
 	}
 }
 

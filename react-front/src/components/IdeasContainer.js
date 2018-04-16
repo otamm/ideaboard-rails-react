@@ -46,7 +46,8 @@ class IdeasContainer extends Component {
 								); // 'titleRef' is a prop defined in IdeaForm.js; it will be used to focus on the title element of a form as soon as it is clicked.
 						} else {
 							return (<Idea idea={idea} key={idea.id} 
-								onClick={this.enableEditing} />
+								onClick={this.enableEditing} 
+								onDelete={this.deleteIdea} />
 							);
 						}
 					})
@@ -81,9 +82,7 @@ class IdeasContainer extends Component {
 	}
 
 	updateIdea = (idea) => { // updates idea state inside IdeasContainer after updating idea's content in the DB
-		const ideaIndex = this.state.ideas.findIndex(function(x) {
-			x.id === idea.id;
-		});
+		const ideaIndex = this.state.ideas.findIndex(x => x.id === id);
 		const ideas = update(this.state.ideas, { // does an immutable update of the edited idea
 			[ideaIndex]: {$set: idea} // replaces the old value of the idea instance with the new one sent to the DB
 		});
@@ -92,6 +91,18 @@ class IdeasContainer extends Component {
 			notification: 'All changes saved!'
 		});
 		this.resetNotification(); // clears notification after 3 seconds;
+	}
+
+	deleteIdea = (id) => {
+	    axios.delete(`http://localhost:3001/api/v1/ideas/${id}`)
+	    .then(response => {
+	      const ideaIndex = this.state.ideas.findIndex(x => x.id === id);
+	      const ideas = update(this.state.ideas, { $splice: [[ideaIndex, 1]]}); // removes deleted idea in DB from rendered ideas array
+	      this.setState({ideas: ideas});
+	    })
+	    .catch(function(error) {
+	    	console.log(error)
+	    });
 	}
 
 	enableEditing = (id) => { // clicked idea tile becomes editable

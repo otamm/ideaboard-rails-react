@@ -5,7 +5,7 @@ class IdeaForm extends Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	    	title: this.props.idea.title,
+	    	title: this.props.idea.title, // turning something into a prop makes it accessible to other components
 	    	body: this.props.idea.body
 	    }
   	}
@@ -43,7 +43,8 @@ class IdeaForm extends Component {
 	            name="title" 
 	            placeholder='Enter a Title'
 	            value={this.state.title}
-	            onChange={this.handleInput} />
+	            onChange={this.handleInput} 
+	        	ref={this.props.titleRef} /> {/* Refs provide a way to access DOM nodes or React elements created in the render method */}
 	          <textarea 
 	            className='input' 
 	            name="body"

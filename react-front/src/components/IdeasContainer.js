@@ -40,9 +40,14 @@ class IdeasContainer extends Component {
 				{	this.state.ideas.map((idea) => {
 						if (this.state.editingIdeaId === idea.id) {
 							// this 'updateIdea' element is a React prop.
-							return (<IdeaForm idea={idea} key={idea.id} updateIdea={this.updateIdea} />);
+							return (<IdeaForm idea={idea} key={idea.id} 
+								updateIdea={this.updateIdea} 
+								titleRef={input => this.title = input}/>
+								); // 'titleRef' is a prop defined in IdeaForm.js; it will be used to focus on the title element of a form as soon as it is clicked.
 						} else {
-							return (<Idea idea={idea} key={idea.id} onClick={this.enableEditing} />);
+							return (<Idea idea={idea} key={idea.id} 
+								onClick={this.enableEditing} />
+							);
 						}
 					})
 				}
@@ -90,7 +95,8 @@ class IdeasContainer extends Component {
 	}
 
 	enableEditing = (id) => { // clicked idea tile becomes editable
-		this.setState({editingIdeaId: id});
+		this.setState({editingIdeaId: id},
+			() => {this.title.focus();}); // passed as a callback to focus on title as soon as state is set;
 	}
 
 	resetNotification = () => {

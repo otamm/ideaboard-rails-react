@@ -82,7 +82,7 @@ class IdeasContainer extends Component {
 	}
 
 	updateIdea = (idea) => { // updates idea state inside IdeasContainer after updating idea's content in the DB
-		const ideaIndex = this.state.ideas.findIndex(x => x.id === id);
+		const ideaIndex = this.state.ideas.findIndex(x => x.id === idea.id);
 		const ideas = update(this.state.ideas, { // does an immutable update of the edited idea
 			[ideaIndex]: {$set: idea} // replaces the old value of the idea instance with the new one sent to the DB
 		});

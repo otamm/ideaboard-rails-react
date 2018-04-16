@@ -1,32 +1,3 @@
-/*.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}*/
-
 /* bg of all ideas */
 .tile {
   height: 150px;
@@ -36,6 +7,10 @@
   float: left;
   font-size: 11px;
   text-align: left;
+}
+
+.tile:hover .deleteButton {
+  visibility: visible;
 }
 
 /* for idea-form */
@@ -68,6 +43,19 @@ textarea {
   margin-left: 10px;
   padding:10px;
 }
+
+/* delete button, only appears once an idea tile is hovered upon */
+
+.deleteButton {
+  visibility: hidden;
+  float: right;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: red;
+}
+
+/* was generated alongside create-react-app */
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
